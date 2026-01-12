@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XP Paint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap');
+      
+      body {
+        font-family: 'Tahoma', sans-serif;
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        user-select: none;
+        background-color: #5ba3d9;
+        position: relative;
+        /* Sky color transition restricted to Windows XP blue variants */
+        animation: sky-cycle 30s ease-in-out infinite;
+      }
+
+      /* Pixelated Bliss Field Background */
+      .background-field {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://images.squarespace-cdn.com/content/v1/5e94df4097486e2978f80456/1614714151325-U9G27ZJ6Z9O2B6S4X9Q3/Bliss_8bit.png');
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+        z-index: -2;
+      }
+
+      /* Lighting tint overlay - now just a subtle cloud shadow effect */
+      .lighting-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+        background-color: rgba(255, 255, 255, 0.05);
+        mix-blend-mode: soft-light;
+      }
+
+      /* Moving Clouds Layer */
+      .cloud {
+        position: absolute;
+        background-image: url('https://art.pixilart.com/83679805908f237.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+        opacity: 0.7;
+        z-index: -1;
+      }
+
+      .cloud-1 { width: 150px; height: 80px; top: 10%; left: 10%; animation: scroll-cloud 60s linear infinite; }
+      .cloud-2 { width: 200px; height: 100px; top: 25%; left: 60%; animation: scroll-cloud 85s linear infinite; }
+      .cloud-3 { width: 120px; height: 60px; top: 15%; left: 85%; animation: scroll-cloud 45s linear infinite; }
+      .cloud-4 { width: 180px; height: 90px; top: 35%; left: 30%; animation: scroll-cloud 110s linear infinite; opacity: 0.5; }
+
+      @keyframes scroll-cloud {
+        from { transform: translateX(100vw); }
+        to { transform: translateX(-150vw); }
+      }
+
+      /* Cycles only through shades of Windows XP Blue */
+      @keyframes sky-cycle {
+        0%, 100% { background-color: #5ba3d9; }    /* Classic Bliss Blue */
+        50% { background-color: #7eb5e6; }         /* Lighter Sky Blue */
+      }
+
+      /* Explicitly enable text selection for typing areas */
+      input, textarea, [contenteditable="true"] {
+        user-select: text !important;
+        -webkit-user-select: text !important;
+      }
+      
+      /* XP Scrollbar simulation */
+      ::-webkit-scrollbar {
+        width: 16px;
+        height: 16px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border: 2px solid #f1f1f1;
+      }
+      ::-webkit-scrollbar-button {
+        background-color: #d4d0c8;
+        width: 16px;
+        height: 16px;
+      }
+
+      .xp-window-shadow {
+        box-shadow: 4px 4px 15px rgba(0,0,0,0.4);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.32.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div class="background-field"></div>
+    <div class="lighting-overlay"></div>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-4"></div>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
